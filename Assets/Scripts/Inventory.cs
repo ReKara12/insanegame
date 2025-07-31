@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
 
     public IReadOnlyDictionary<ItemData, int> Items => _items;
 
+    public event System.Action OnInventoryChanged;
+
     public void AddItem(ItemData item)
     {
         if (item == null) return;
@@ -17,5 +19,7 @@ public class Inventory : MonoBehaviour
             _items[item] = 1;
 
         Debug.Log($"Added {item.itemName} to inventory. Total: {_items[item]}");
+
+        OnInventoryChanged?.Invoke();
     }
 }
